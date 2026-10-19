@@ -1,0 +1,877 @@
+@reference "./index.css";
+
+.app-shell {
+  @apply mx-auto flex min-h-screen w-full max-w-[1440px] flex-col px-4;
+}
+
+.topbar {
+  @apply sticky top-0 z-20 flex h-[72px] shrink-0 items-center justify-between border-b border-white/10 bg-[#0b1020]/75 backdrop-blur-xl;
+}
+
+.brand {
+  @apply inline-flex items-center gap-3 text-[17px] font-bold tracking-[-0.6px] text-white no-underline;
+}
+
+.brand-mark {
+  @apply grid size-9 place-items-center rounded-xl bg-gradient-to-br from-violet-400 to-indigo-600 text-white shadow-lg shadow-violet-950/50;
+}
+
+.brand-light {
+  @apply font-normal text-slate-400;
+}
+
+.topbar-right {
+  @apply flex items-center gap-4;
+}
+
+.topbar-label,
+.eyebrow,
+.step-caption-label {
+  @apply text-[9px] font-bold tracking-[0.14em] text-slate-500;
+}
+
+.topbar-divider {
+  @apply h-5 w-px bg-white/10;
+}
+
+.language-pill {
+  @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-[11px] font-semibold text-slate-300;
+}
+
+.language-dot,
+.status-dot {
+  @apply size-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.55)];
+}
+
+main {
+  @apply flex-1;
+}
+
+.intro {
+  @apply flex min-h-[230px] items-center justify-between gap-8 py-10;
+}
+
+.intro-copy {
+  @apply max-w-3xl;
+}
+
+.intro-kicker {
+  @apply mb-4 flex items-center gap-2.5 text-[10px] font-bold tracking-[0.18em] text-violet-300;
+}
+
+.intro-kicker span {
+  @apply h-0.5 w-6 rounded-full bg-gradient-to-r from-violet-400 to-cyan-300;
+}
+
+.intro h1 {
+  @apply m-0 text-4xl font-bold leading-[1.06] tracking-[-0.055em] text-white;
+}
+
+.intro h1 span {
+  @apply bg-gradient-to-r from-violet-300 via-fuchsia-300 to-cyan-300 bg-clip-text text-transparent;
+}
+
+.intro-copy > p {
+  @apply mt-4 max-w-xl text-sm leading-7 text-slate-400;
+}
+
+.intro-note {
+  @apply mb-1 flex shrink-0 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-[11px] text-slate-300 shadow-lg shadow-black/10;
+}
+
+.intro-note svg {
+  @apply text-violet-300;
+}
+
+.intro-note i {
+  @apply text-slate-600 not-italic;
+}
+
+.workspace {
+  @apply grid grid-cols-1 items-stretch gap-5 pb-8;
+}
+
+.panel {
+  @apply min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-[#101626]/90 shadow-2xl shadow-black/25 ring-1 ring-white/[0.025] backdrop-blur-xl transition duration-300 hover:border-white/[0.16];
+}
+
+.code-panel,
+.visual-panel {
+  @apply flex flex-col;
+}
+
+.panel-heading {
+  @apply flex min-h-[76px] items-center justify-between border-b border-white/[0.07] px-5;
+}
+
+.panel-title-group {
+  @apply flex min-w-0 items-center gap-3;
+}
+
+.panel-icon {
+  @apply grid size-10 shrink-0 place-items-center rounded-xl;
+}
+
+.code-icon {
+  @apply bg-violet-400/10 text-violet-300 ring-1 ring-violet-300/15;
+}
+
+.visual-icon {
+  @apply bg-cyan-300/10 text-cyan-200 ring-1 ring-cyan-200/15;
+}
+
+.panel-heading h2 {
+  @apply m-0 text-[13px] font-semibold tracking-tight text-slate-100;
+}
+
+.panel-heading p {
+  @apply mt-1 truncate text-[10px] text-slate-500;
+}
+
+.language-badge {
+  @apply rounded-md border border-violet-300/15 bg-violet-300/10 px-2 py-1 text-[9px] font-bold tracking-wide text-violet-200;
+}
+
+.structure-picker {
+  @apply px-5 pb-4 pt-4;
+}
+
+.structure-picker label {
+  @apply mb-2 block text-[9px] font-bold tracking-[0.14em] text-slate-500;
+}
+
+.select-wrap {
+  @apply relative;
+}
+
+.select-wrap select {
+  @apply w-full appearance-none rounded-lg border border-white/10 bg-[#0b1020] px-3 py-2.5 pr-10 text-xs font-semibold text-slate-200 outline-none transition duration-200 hover:border-white/20 focus:border-violet-400/60 focus:ring-4 focus:ring-violet-500/10;
+}
+
+.select-wrap option {
+  @apply bg-[#101626] text-slate-100;
+}
+
+.select-wrap > svg {
+  @apply pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-slate-500;
+}
+
+.code-toolbar {
+  @apply flex min-h-9 items-center justify-between border-y border-white/[0.06] bg-black/15 px-5;
+}
+
+.file-label,
+.code-toolbar-meta {
+  @apply inline-flex items-center gap-2 font-mono text-[9px] text-slate-500;
+}
+
+.file-dot {
+  @apply h-2.5 w-2 rounded-sm border border-violet-300/50;
+}
+
+.code-toolbar-meta {
+  @apply font-sans font-semibold tracking-wide;
+}
+
+.status-dot {
+  @apply size-1.5 bg-emerald-400;
+}
+
+.code-scroll {
+  @apply min-h-[300px] max-h-[300px] overflow-auto bg-[#0b1020]/70 py-3 [scrollbar-color:#343956_transparent] [scrollbar-width:thin];
+}
+
+.custom-code-editor {
+  @apply block h-[276px] w-full resize-y border-0 bg-transparent px-4 py-1 font-mono text-[11px] leading-[21px] text-slate-300 outline-none [tab-size:4] selection:bg-violet-500/30;
+}
+
+.trace-error {
+  @apply m-0 border-t border-rose-400/15 bg-rose-400/[0.06] px-5 py-2.5 text-[10px] leading-relaxed text-rose-200;
+}
+
+.code-block {
+  @apply m-0 whitespace-pre font-mono text-[11px] leading-[21px] text-slate-400;
+}
+
+.code-line {
+  @apply flex min-h-[21px] border-l-2 border-transparent pr-4 transition-colors duration-200;
+}
+
+.code-line.active {
+  @apply border-violet-400 bg-violet-400/[0.12];
+}
+
+.line-number {
+  @apply w-12 shrink-0 select-none pr-3 text-right text-slate-600;
+}
+
+.code-line.active .line-number {
+  @apply font-bold text-violet-300;
+}
+
+.code-line code {
+  @apply bg-transparent p-0 text-inherit;
+  font: inherit;
+}
+
+.code-line.active code {
+  @apply font-semibold text-violet-100;
+}
+
+.step-caption {
+  @apply min-h-[88px] border-t border-white/[0.07] bg-white/[0.015] px-5 py-3;
+}
+
+.step-caption-label {
+  @apply block text-[8px];
+}
+
+.step-caption strong {
+  @apply mt-1 block text-[11px] font-semibold text-slate-100;
+}
+
+.step-caption p {
+  @apply mt-1 text-[10px] leading-relaxed text-slate-400;
+}
+
+.code-controls {
+  @apply flex min-h-[68px] items-center gap-2.5 border-t border-white/[0.07] px-5;
+}
+
+.icon-button,
+.back-button,
+.step-button {
+  @apply inline-flex h-9 cursor-pointer items-center justify-center rounded-lg font-sans transition duration-200 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+.icon-button {
+  @apply w-9 border border-white/10 bg-white/[0.04] text-slate-400 hover:border-white/20 hover:bg-white/[0.08] hover:text-white;
+}
+
+.back-button {
+  @apply border border-white/10 bg-white/[0.04] px-3 text-[10px] font-semibold text-slate-300 hover:border-white/20 hover:bg-white/[0.08];
+}
+
+.step-button {
+  @apply flex-1 gap-2 border border-violet-400/40 bg-gradient-to-r from-violet-600 to-indigo-600 px-4 text-[10px] font-bold text-white shadow-lg shadow-violet-950/40 hover:from-violet-500 hover:to-indigo-500 disabled:border-emerald-400/20 disabled:from-emerald-500/15 disabled:to-teal-500/15 disabled:text-emerald-200;
+}
+
+.visual-heading {
+  @apply min-h-[76px];
+}
+
+.running-badge {
+  @apply inline-flex items-center gap-2 rounded-full border border-emerald-300/15 bg-emerald-300/[0.07] px-2.5 py-1.5 text-[8px] font-bold tracking-[0.12em] text-emerald-200;
+}
+
+.running-badge i {
+  @apply size-1.5 animate-pulse rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.7)];
+}
+
+.visual-status {
+  @apply flex min-h-[70px] items-center justify-between gap-3 px-5 py-3;
+}
+
+.visual-status .eyebrow {
+  @apply mb-1 block text-[8px];
+}
+
+.visual-status strong {
+  @apply block truncate text-xs font-semibold text-slate-100;
+}
+
+.operation-counter {
+  @apply shrink-0 font-mono text-[11px] font-semibold text-slate-300;
+}
+
+.operation-counter i {
+  @apply px-1 text-slate-600 not-italic;
+}
+
+.visual-canvas {
+  @apply relative flex min-h-[360px] flex-1 items-center justify-center overflow-hidden border-y border-white/[0.07] bg-[#0b1020]/65;
+  background-image: radial-gradient(ellipse at center, rgb(108 79 199 / 9%), transparent 72%);
+}
+
+.canvas-grid {
+  @apply pointer-events-none absolute inset-0 opacity-35;
+  background-image: radial-gradient(rgb(148 163 184 / 28%) 0.7px, transparent 0.7px);
+  background-size: 20px 20px;
+  mask-image: linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
+}
+
+.stack-layout,
+.linear-queue-layout,
+.ring-layout,
+.linked-list-layout,
+.circular-list-layout,
+.binary-tree-layout {
+  @apply relative z-[1] flex w-full flex-col items-center;
+}
+
+.stack-layout {
+  @apply px-6 py-7;
+}
+
+.stack-pointer {
+  @apply flex min-h-6 w-[162px] items-center gap-2 text-[9px] font-bold text-violet-300;
+}
+
+.stack-pointer i {
+  @apply h-px w-5 bg-violet-300/50;
+}
+
+.stack-pointer small {
+  @apply text-[8px] font-normal text-slate-500;
+}
+
+.stack-pointer.is-empty {
+  @apply text-slate-500;
+}
+
+.stack-items {
+  @apply flex min-h-[205px] w-[162px] flex-col items-stretch justify-end rounded-b-md border-x-2 border-b-2 border-white/15;
+}
+
+.stack-cell {
+  @apply relative flex min-h-[42px] items-center justify-center border-t border-white/10 bg-[#171c2a] text-slate-100 transition duration-200;
+  animation: appear 220ms ease-out;
+}
+
+.stack-cell strong {
+  @apply font-mono text-sm;
+}
+
+.cell-index {
+  @apply absolute left-2.5 font-mono text-[8px] text-slate-500;
+}
+
+.stack-top-cell {
+  @apply border-t-violet-300/40 bg-violet-400/[0.12] text-violet-100;
+}
+
+.top-chip {
+  @apply absolute -right-10 text-[8px] font-bold tracking-wide text-violet-300;
+}
+
+.stack-base {
+  @apply flex h-2 items-center justify-center gap-2;
+}
+
+.stack-base span {
+  @apply h-[3px] w-1 rounded-full bg-slate-600;
+}
+
+.empty-stack,
+.empty-list {
+  @apply grid min-h-24 place-items-center px-4 text-center text-[10px] text-slate-500;
+}
+
+.stack-direction {
+  @apply mt-4 text-[8px] font-semibold tracking-[0.12em] text-slate-500;
+}
+
+.linear-queue-layout {
+  @apply px-5 py-8;
+}
+
+.queue-direction {
+  @apply relative mb-4 flex w-[88%] max-w-[425px] items-center justify-between text-[8px] font-bold tracking-[0.12em] text-slate-500;
+}
+
+.queue-direction svg {
+  @apply absolute left-1/2 -translate-x-1/2 text-slate-500;
+}
+
+.queue-slots {
+  @apply flex min-h-[116px] w-full max-w-[470px] items-start justify-center;
+}
+
+.queue-slot {
+  @apply flex min-w-0 flex-1 flex-col items-center;
+}
+
+.pointer-tag {
+  @apply inline-flex min-h-[15px] items-center justify-center whitespace-nowrap rounded px-1.5 py-0.5 font-sans text-[7px] font-extrabold tracking-wide text-violet-200 ring-1 ring-violet-300/10;
+  background: rgb(139 92 246 / 16%);
+}
+
+.pointer-tag.muted {
+  @apply bg-slate-400/10 text-slate-400;
+}
+
+.queue-value {
+  @apply grid h-[53px] w-full place-items-center border-y border-r border-white/10 bg-[#171c2a] font-mono text-[13px] font-semibold text-slate-100 transition duration-200;
+}
+
+.queue-slot:first-child .queue-value {
+  @apply rounded-l-lg border-l;
+}
+
+.queue-slot:last-child .queue-value {
+  @apply rounded-r-lg;
+}
+
+.queue-slot.filled .queue-value {
+  @apply bg-violet-400/[0.12] text-violet-100;
+}
+
+.queue-slot.front-slot .queue-value {
+  @apply border-y-violet-300/50;
+}
+
+.queue-value > span {
+  @apply font-normal text-slate-600;
+}
+
+.slot-index {
+  @apply mt-1.5 font-mono text-[8px] text-slate-600;
+}
+
+.visual-hint {
+  @apply mt-6 text-center text-[9px] text-slate-500;
+}
+
+.linked-list-layout,
+.circular-list-layout {
+  @apply px-5 py-9;
+}
+
+.binary-tree-layout {
+  @apply w-full px-3 py-5;
+}
+
+.binary-tree-stage {
+  @apply relative w-full max-w-[620px];
+}
+
+.binary-tree-edges {
+  @apply absolute inset-0 h-full w-full overflow-visible;
+}
+
+.binary-tree-edges line {
+  stroke: rgb(167 139 250 / 55%);
+  stroke-width: 1.5;
+}
+
+.binary-tree-node {
+  @apply absolute z-[1] flex h-[54px] w-[62px] -translate-x-1/2 flex-col items-center justify-center gap-0.5 rounded-lg border border-white/10 bg-[#171c2a] shadow-lg shadow-black/20 transition duration-200;
+  animation: appear 220ms ease-out;
+}
+
+.binary-tree-node strong {
+  @apply font-mono text-sm text-slate-100;
+}
+
+.binary-tree-node small {
+  @apply text-[7px] font-bold tracking-wider text-slate-500;
+}
+
+.binary-tree-node.active-tree-node {
+  @apply border-violet-300/60 bg-violet-400/20 shadow-violet-950/40;
+}
+
+.binary-tree-node.active-tree-node strong {
+  @apply text-violet-100;
+}
+
+.tree-root-node {
+  @apply border-cyan-300/25;
+}
+
+.linked-nodes,
+.circular-nodes {
+  @apply relative flex w-full items-center justify-center;
+}
+
+.node-sequence,
+.circular-node-wrap {
+  @apply flex items-center;
+}
+
+.node-card {
+  @apply relative flex h-[74px] min-w-[76px] flex-col items-center justify-between rounded-lg border border-white/10 bg-[#171c2a] px-2 py-2 shadow-lg shadow-black/20 transition duration-300;
+  animation: appear 220ms ease-out;
+}
+
+.node-card > .pointer-tag {
+  @apply absolute left-1/2 top-[-9px] -translate-x-1/2;
+}
+
+.node-card > .pointer-tag:last-child:not(:first-child) {
+  @apply bottom-[-9px] top-auto;
+}
+
+.node-card strong {
+  @apply mt-1 font-mono text-[15px] text-slate-100;
+}
+
+.node-next {
+  @apply flex items-center gap-1 font-mono text-[8px] text-slate-400;
+}
+
+.head-node {
+  @apply border-violet-300/40 shadow-violet-950/20;
+}
+
+.tail-node {
+  @apply border-cyan-300/20;
+}
+
+.node-connector {
+  @apply grid min-w-[33px] place-items-center text-violet-300/70;
+}
+
+.circular-list-layout {
+  @apply pt-6;
+}
+
+.circular-nodes {
+  @apply flex-wrap gap-y-10 px-2.5 pb-8;
+}
+
+.circular-node-wrap {
+  @apply relative;
+}
+
+.circular-node-wrap .node-card {
+  @apply min-w-[73px];
+}
+
+.circular-node-wrap .node-connector {
+  @apply min-w-[26px];
+}
+
+.custom-view {
+  @apply relative z-[1] flex w-full flex-col items-center px-5 py-8;
+}
+
+.custom-direction {
+  @apply relative mb-4 flex w-full max-w-[460px] items-center justify-between text-[8px] font-bold tracking-[0.12em] text-slate-500;
+}
+
+.custom-direction svg {
+  @apply absolute left-1/2 -translate-x-1/2 text-slate-400;
+}
+
+.custom-nodes {
+  @apply flex min-h-[110px] w-full max-w-[560px] flex-wrap items-center justify-center gap-y-2;
+}
+
+.custom-node-wrap {
+  @apply relative flex min-h-[62px] flex-row items-center justify-center;
+}
+
+.custom-node {
+  @apply flex min-h-[62px] w-[76px] flex-col items-center justify-center gap-1 rounded-lg border border-white/10 bg-[#171c2a] px-1.5 py-2 text-slate-100 shadow-lg shadow-black/20;
+  animation: appear 220ms ease-out;
+}
+
+.custom-node strong {
+  @apply max-w-full overflow-hidden text-ellipsis font-mono text-[13px] text-inherit;
+}
+
+.custom-node small {
+  @apply font-mono text-[8px] text-slate-400;
+}
+
+.custom-node-wrap > .pointer-tag {
+  @apply absolute left-1/2 top-[-8px] z-[2] min-h-[15px] -translate-x-1/2;
+}
+
+.custom-node-wrap > .custom-rear-tag {
+  @apply bottom-[-8px] top-auto;
+}
+
+.custom-node-wrap > .node-connector {
+  @apply min-h-0 min-w-[26px];
+}
+
+.custom-stack-nodes {
+  @apply flex-col-reverse gap-2.5;
+}
+
+.custom-stack-nodes .custom-node-wrap {
+  @apply min-h-[62px];
+}
+
+.custom-view .visual-hint {
+  @apply mb-0;
+}
+
+.loop-back {
+  @apply absolute bottom-0 left-[16%] right-[16%] h-6 border-b border-l border-r border-violet-300/40;
+}
+
+.loop-back::before,
+.loop-back::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  width: 8px;
+  height: 8px;
+  border-bottom: 1px solid rgb(196 181 253 / 65%);
+}
+
+.loop-back::before {
+  left: -1px;
+  transform: rotate(45deg);
+}
+
+.loop-back::after {
+  right: -1px;
+  transform: rotate(135deg);
+}
+
+.loop-back span {
+  @apply absolute bottom-0 left-1/2 bg-[#0b1020] px-1 font-mono text-[8px] text-violet-200/70;
+  transform: translateX(-50%);
+}
+
+.ring-layout {
+  @apply px-5 py-6;
+}
+
+.ring {
+  @apply relative h-[222px] w-[260px];
+}
+
+.ring::before {
+  content: '';
+  @apply absolute left-[53px] top-[25px] size-[154px] rounded-full border border-dashed border-white/15;
+}
+
+.ring-center {
+  @apply absolute left-1/2 top-1/2 text-center text-[8px] font-bold leading-relaxed tracking-widest text-slate-500;
+  transform: translate(-50%, -50%);
+}
+
+.ring-slot {
+  @apply absolute flex size-[63px] flex-col items-center justify-center gap-1 rounded-lg border border-white/10 bg-[#171c2a] shadow-lg shadow-black/20;
+  animation: appear 220ms ease-out;
+}
+
+.ring-slot-0 { left: 98px; top: 0; }
+.ring-slot-1 { right: 13px; top: 80px; }
+.ring-slot-2 { bottom: 0; left: 98px; }
+.ring-slot-3 { left: 13px; top: 80px; }
+
+.ring-slot strong {
+  @apply font-mono text-xs text-slate-500;
+}
+
+.ring-slot.filled {
+  @apply border-violet-300/30 bg-violet-400/[0.12];
+}
+
+.ring-slot.filled strong {
+  @apply text-violet-100;
+}
+
+.ring-slot.front-slot {
+  @apply shadow-[0_0_0_3px_rgba(167,139,250,0.12)];
+}
+
+.ring-slot .slot-index {
+  @apply absolute left-1.5 top-1.5 m-0 text-[7px];
+}
+
+.ring-tags {
+  @apply absolute -right-1 -top-1.5 flex gap-0.5;
+}
+
+.ring-tags .pointer-tag {
+  @apply grid size-3.5 min-h-0 min-w-0 place-items-center bg-violet-500 p-0 text-[7px] text-white;
+}
+
+.ring-tags .pointer-tag:last-child:nth-child(2) {
+  @apply bg-teal-500;
+}
+
+.pointer-legend {
+  @apply mt-4 flex justify-center gap-5;
+}
+
+.pointer-legend span {
+  @apply flex items-center gap-1.5 text-[8px] font-bold tracking-wide text-slate-500;
+}
+
+.pointer-legend i {
+  @apply size-1.5 rounded-full bg-violet-400;
+}
+
+.pointer-legend .legend-rear {
+  @apply bg-teal-400;
+}
+
+.pointer-legend .legend-count {
+  @apply bg-slate-500;
+}
+
+.pointer-legend b {
+  @apply font-mono text-[9px] text-slate-300;
+}
+
+.visual-footer {
+  @apply flex min-h-[76px] items-center gap-4 bg-white/[0.015] px-5;
+}
+
+.metric {
+  @apply flex items-center gap-2 whitespace-nowrap;
+}
+
+.metric-icon,
+.complexity-icon {
+  @apply grid size-7 place-items-center rounded-lg bg-violet-400/10 text-violet-200;
+}
+
+.complexity-icon {
+  @apply bg-teal-300/10 text-lg text-teal-200;
+}
+
+.metric span:last-child {
+  @apply flex flex-col gap-0.5;
+}
+
+.metric small {
+  @apply text-[7px] font-bold tracking-wide text-slate-500;
+}
+
+.metric strong {
+  @apply font-mono text-[10px] text-slate-200;
+}
+
+.metric-separator {
+  @apply h-7 w-px bg-white/10;
+}
+
+.progress-block {
+  @apply ml-auto min-w-[90px] flex-1;
+}
+
+.progress-label {
+  @apply mb-1.5 flex justify-between text-[7px] font-bold tracking-wide text-slate-500;
+}
+
+.progress-label strong {
+  @apply font-mono text-[8px] text-violet-200;
+}
+
+.progress-track {
+  @apply h-1 overflow-hidden rounded-full bg-white/10;
+}
+
+.progress-track i {
+  @apply block h-full rounded-full bg-gradient-to-r from-violet-400 via-fuchsia-400 to-teal-300 transition-[width] duration-500 ease-out;
+}
+
+.app-footer {
+  @apply flex min-h-[52px] items-center justify-between border-t border-white/10 text-[8px] font-semibold tracking-widest text-slate-600;
+}
+
+.app-footer span:last-child {
+  @apply inline-flex items-center gap-1.5 text-[9px] font-normal tracking-normal text-slate-500;
+}
+
+.app-footer svg {
+  @apply text-violet-300;
+}
+
+.app-footer i {
+  @apply px-1 text-slate-700 not-italic;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 640px) {
+  .intro {
+    @apply min-h-0 py-9;
+  }
+
+  .intro-note {
+    @apply hidden;
+  }
+
+  .code-scroll {
+    @apply min-h-[280px] max-h-[280px];
+  }
+
+  .visual-canvas {
+    @apply min-h-[320px];
+  }
+
+  .visual-footer {
+    @apply flex-wrap gap-3 py-3;
+  }
+
+  .metric-separator {
+    @apply hidden;
+  }
+
+  .progress-block {
+    @apply mt-1 basis-full;
+  }
+
+  .linked-nodes,
+  .circular-nodes {
+    transform: scale(0.8);
+  }
+}
+
+@media (min-width: 640px) {
+  .app-shell { padding-right: 1.75rem; padding-left: 1.75rem; }
+  .intro h1 { font-size: 3rem; }
+  .intro-copy > p { font-size: 1rem; }
+}
+
+@media (min-width: 1024px) {
+  .app-shell { padding-right: 3rem; padding-left: 3rem; }
+  .workspace { grid-template-columns: minmax(340px, 0.92fr) minmax(0, 1.08fr); }
+  .intro h1 { font-size: 58px; }
+}
+
+@media (max-width: 420px) {
+  .topbar-label,
+  .topbar-divider {
+    @apply hidden;
+  }
+
+  .panel-heading {
+    @apply px-3;
+  }
+
+  .panel-title-group {
+    @apply gap-2;
+  }
+
+  .panel-icon {
+    @apply size-8;
+  }
+
+  .structure-picker,
+  .code-controls,
+  .visual-status,
+  .visual-footer {
+    @apply px-3;
+  }
+
+  .step-button {
+    @apply gap-1 px-2 text-[9px];
+  }
+
+  .back-button {
+    @apply px-2 text-[9px];
+  }
+
+  .queue-value {
+    @apply h-11 text-[11px];
+  }
+
+  .linked-nodes,
+  .circular-nodes {
+    transform: scale(0.7);
+  }
+}
