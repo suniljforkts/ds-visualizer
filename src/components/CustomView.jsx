@@ -16,9 +16,21 @@ function CustomView({ structure, frame }) {
               {kind === 'queue' && index === 0 && <PointerTag className="custom-front-tag">FRONT</PointerTag>}
               {kind === 'linked-list' && index === 0 && <PointerTag className="custom-head-tag">HEAD</PointerTag>}
               {kind === 'stack' && index === values.length - 1 && <PointerTag className="custom-top-tag">TOP</PointerTag>}
-              <div className="custom-node">
-                <strong>{value ?? '—'}</strong>
-                <small>{kind === 'linked-list' ? index === values.length - 1 ? 'NULL' : 'next' : `[${index}]`}</small>
+              <div className={`custom-node ${kind === 'linked-list' ? 'custom-list-node' : ''}`}>
+                {kind === 'linked-list' ? (
+                  <>
+                    <span className="node-data"><small>DATA</small><strong>{value ?? '—'}</strong></span>
+                    <span className="node-next">
+                      <small>{index === values.length - 1 ? 'NULL' : 'NEXT'}</small>
+                      {index === values.length - 1 ? <b>-|</b> : <Icon name="arrow" size={12} />}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <strong>{value ?? '—'}</strong>
+                    <small>{`[${index}]`}</small>
+                  </>
+                )}
               </div>
               {kind === 'queue' && index === values.length - 1 && <PointerTag className="custom-rear-tag">REAR</PointerTag>}
               {kind === 'linked-list' && index < values.length - 1 && <span className="node-connector"><Icon name="arrow" size={16} /></span>}

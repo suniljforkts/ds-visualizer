@@ -13,16 +13,26 @@ function LinkedList({ structure, frame }) {
           <div className="circular-nodes">
             {values.map((value, index) => (
               <div className="circular-node-wrap" key={`${value}-${index}`}>
-                <div className={`node-card ${index === 0 ? 'head-node' : ''} ${index === values.length - 1 ? 'tail-node' : ''}`}>
+                <div className={`node-card list-node ${index === 0 ? 'head-node' : ''} ${index === values.length - 1 ? 'tail-node' : ''}`}>
                   {index === 0 && <PointerTag>HEAD</PointerTag>}
-                  <strong>{value}</strong>
-                  <span className="node-next">next <Icon name="arrow" size={12} /></span>
+                  <span className="node-data"><small>DATA</small><strong>{value}</strong></span>
+                  <span className="node-next"><small>NEXT</small><Icon name="arrow" size={12} /></span>
                   {index === values.length - 1 && <PointerTag>TAIL</PointerTag>}
                 </div>
-                <span className="node-connector"><Icon name="arrow" size={16} /></span>
+                {index < values.length - 1 && <span className="node-connector"><Icon name="arrow" size={16} /></span>}
               </div>
             ))}
-            <div className="loop-back"><span>tail.next → head</span></div>
+            <div
+              className={`loop-back ${values.length === 1 ? 'single-node-loop' : ''}`}
+              style={{
+                left: `calc(50% - ${(values.length - 1) * 84}px)`,
+                right: `calc(50% - ${(values.length - 1) * 84}px)`,
+              }}
+              aria-label="Tail next pointer loops back to the head"
+            >
+              <span className="loop-back-label">tail.next → head</span>
+              <span className="loop-head-arrow"><Icon name="arrow" size={12} /></span>
+            </div>
           </div>
         )}
         <p className="visual-hint">The tail’s next pointer reconnects to the head.</p>
@@ -35,10 +45,13 @@ function LinkedList({ structure, frame }) {
         <div className="linked-nodes">
           {values.map((value, index) => (
             <div className="node-sequence" key={`${value}-${index}`}>
-              <div className={`node-card ${index === 0 ? 'head-node' : ''} ${index === values.length - 1 ? 'tail-node' : ''}`}>
+              <div className={`node-card list-node ${index === 0 ? 'head-node' : ''} ${index === values.length - 1 ? 'tail-node' : ''}`}>
                 {index === 0 && <PointerTag>HEAD</PointerTag>}
-                <strong>{value}</strong>
-                <span className="node-next">{index === values.length - 1 ? 'NULL' : 'next'}{index !== values.length - 1 && <Icon name="arrow" size={12} />}</span>
+                <span className="node-data"><small>DATA</small><strong>{value}</strong></span>
+                <span className="node-next">
+                  <small>{index === values.length - 1 ? 'NULL' : 'NEXT'}</small>
+                  {index === values.length - 1 ? <b>-|</b> : <Icon name="arrow" size={12} />}
+                </span>
                 {index === values.length - 1 && <PointerTag muted>TAIL</PointerTag>}
               </div>
               {index < values.length - 1 && <span className="node-connector"><Icon name="arrow" size={17} /></span>}

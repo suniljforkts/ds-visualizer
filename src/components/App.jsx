@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import '../App.css'
 import { createCustomTrace, starterCode } from '../utils/customTrace.js'
 import Header from './Header.jsx'
@@ -539,6 +539,102 @@ function App() {
   const [selectedId, setSelectedId] = useState('stack')
   const [step, setStep] = useState(0)
   const [customSource, setCustomSource] = useState(starterCode)
+  const [customCodeLoaded, setCustomCodeLoaded] = useState(false)
+  const [savedCodes, setSavedCodes] = useState([])
+  const [selectedCodeId, setSelectedCodeId] = useState(null)
+  const [customCodeDirty, setCustomCodeDirty] = useState(false)
+  const [saveStatus, setSaveStatus] = useState({ state: 'loading', message: 'Loading saved code…' })
+  const saveQueue = useRef(Promise.resolve())
+  const latestSource = useRef(customSource)
+  const latestCodeId = useRef(null)
+  const customCodeTouched = useRef(false)
+
+  useEffect(() => {
+    let active = true
+    fetch('/api/custom-code')
+      .then(async (response) => {
+        const body = await response.json()
+        if (!response.ok) throw new Error(body.error || 'Unable to load saved code from MySQL.')
+        return body
+      })
+      .then(({ codes }) => {
+        if (!active) return
+        const latestCode = codes[0] ?? null
+        setSavedCodes(codes)
+        if (latestCode && !customCodeTouched.current) {
+          latestSource.current = latestCode.code
+          latestCodeId.current = latestCode.code_id
+          setSelectedCodeId(latestCode.code_id)
+          setCustomSource(latestCode.code)
+        }
+        setCustomCodeLoaded(true)
+        setSaveStatus(latestCode
+          ? { state: 'saved', message: `Loaded code #${latestCode.code_id}` }
+          : { state: 'saved', message: 'New code · not saved' })
+      })
+      .catch((error) => {
+        if (!active) return
+        setCustomCodeLoaded(true)
+        setSaveStatus({ state: 'error', message: error.message })
+      })
+    return () => {
+      active = false
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!customCodeLoaded || !customCodeDirty) return undefined
+    const sourceToSave = customSource
+    const codeIdAtSchedule = selectedCodeId
+    const timeout = window.setTimeout(() => {
+      if ([...sourceToSave].length > 4096) {
+        setSaveStatus({ state: 'error', message: 'Code exceeds the 4,096-character MySQL limit.' })
+        return
+      }
+      setSaveStatus({ state: 'saving', message: 'Saving to MySQL…' })
+      saveQueue.current = saveQueue.current
+        .then(async () => {
+          if (latestSource.current !== sourceToSave || latestCodeId.current !== codeIdAtSchedule) return
+          const response = await fetch('/api/custom-code', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ source: sourceToSave }),
+          })
+          const body = await response.json()
+          if (response.ok) {
+            setSavedCodes((codes) => [
+              { code_id: body.code_id, code: sourceToSave },
+              ...codes.filter((code) => code.code_id !== body.code_id),
+            ].sort((left, right) => right.code_id - left.code_id))
+          }
+          if (response.status === 409 && body.duplicate) {
+            if (latestSource.current === sourceToSave && latestCodeId.current === codeIdAtSchedule) {
+              const duplicateId = Number(body.code_id)
+              latestCodeId.current = duplicateId
+              setSelectedCodeId(duplicateId)
+              setCustomCodeDirty(false)
+              setSaveStatus({ state: 'duplicate', message: `Duplicate of code #${duplicateId}` })
+              window.alert(`This code already exists as Code #${duplicateId}. It was not saved again.`)
+            }
+            return
+          }
+          if (!response.ok) throw new Error(body.error || 'Unable to save code to MySQL.')
+          if (latestSource.current === sourceToSave && latestCodeId.current === codeIdAtSchedule) {
+            latestCodeId.current = body.code_id
+            setSelectedCodeId(body.code_id)
+            setCustomCodeDirty(false)
+            setSaveStatus({ state: 'saved', message: `Saved code #${body.code_id}` })
+          }
+        })
+        .catch((error) => {
+          if (latestSource.current === sourceToSave && latestCodeId.current === codeIdAtSchedule) {
+            setSaveStatus({ state: 'error', message: error.message })
+          }
+        })
+    }, 500)
+    return () => window.clearTimeout(timeout)
+  }, [customCodeDirty, customCodeLoaded, customSource, selectedCodeId])
+
   const customTrace = useMemo(() => createCustomTrace(customSource), [customSource])
   const customStructure = useMemo(() => ({
     id: 'custom',
@@ -557,6 +653,30 @@ function App() {
 
   const selectStructure = (id) => {
     setSelectedId(id)
+    setStep(0)
+  }
+
+  const selectSavedCode = (codeId) => {
+    const savedCode = savedCodes.find((code) => String(code.code_id) === codeId)
+    if (!savedCode) return
+    customCodeTouched.current = true
+    latestSource.current = savedCode.code
+    latestCodeId.current = savedCode.code_id
+    setSelectedCodeId(savedCode.code_id)
+    setCustomSource(savedCode.code)
+    setCustomCodeDirty(false)
+    setSaveStatus({ state: 'saved', message: `Loaded code #${savedCode.code_id}` })
+    setStep(0)
+  }
+
+  const createNewCode = () => {
+    customCodeTouched.current = true
+    latestSource.current = ''
+    latestCodeId.current = null
+    setSelectedCodeId(null)
+    setCustomSource('')
+    setCustomCodeDirty(false)
+    setSaveStatus({ state: 'saved', message: 'New code · not saved' })
     setStep(0)
   }
 
@@ -582,8 +702,20 @@ function App() {
             onBack={() => setStep((current) => Math.max(current - 1, 0))}
             onReset={() => setStep(0)}
             customSource={customSource}
+            saveStatus={saveStatus}
+            currentLine={structure.id === 'custom' ? frame.line : -1}
+            savedCodes={savedCodes}
+            selectedCodeId={selectedCodeId}
+            programType={customTrace.kind}
+            onSavedCodeSelect={selectSavedCode}
+            onNewCode={createNewCode}
             onCustomSourceChange={(source) => {
+              customCodeTouched.current = true
+              latestSource.current = source
+              latestCodeId.current = selectedCodeId
               setCustomSource(source)
+              setCustomCodeDirty(true)
+              setSaveStatus({ state: 'saving', message: 'Changes not saved yet' })
               setStep(0)
             }}
           />
